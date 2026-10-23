@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "migrate:admin-check": "tsx scripts/migrate-admin-check.ts"
+    "migrate:admin-check": "tsx scripts/migrate-admin-check.ts",
+    "admin:recognize": "tsx scripts/recognize-admin.ts",
+    "recognize-admin": "tsx scripts/recognize-admin.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

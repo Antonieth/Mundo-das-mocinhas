@@ -59,8 +59,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onBackToStore }) => {
   });
 
   // Setup form states
-  const [setupName, setSetupName] = useState('Antonieth António');
-  const [setupEmail, setSetupEmail] = useState('antoniethantonio@gmail.com');
+  const [setupName, setSetupName] = useState('Administradora Oficial');
+  const [setupEmail, setSetupEmail] = useState('admin@gmai.com');
   const [setupPhone, setSetupPhone] = useState('+244 923 000 000');
   const [setupPassword, setSetupPassword] = useState('');
   const [setupConfirmPassword, setSetupConfirmPassword] = useState('');
@@ -769,7 +769,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onBackToStore }) => {
               <input
                 type="email"
                 required
-                placeholder="ex: admin@empresa.ao"
+                placeholder="admin@gmai.com"
                 value={adminEmail}
                 onChange={(e) => setAdminEmail(e.target.value)}
                 className="w-full px-3.5 py-2.5 text-xs rounded-xl bg-zinc-800/80 border border-zinc-700 text-white focus:outline-hidden focus:ring-2 focus:ring-pink-500"

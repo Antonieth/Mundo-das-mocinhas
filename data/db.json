@@ -139,6 +139,176 @@
       "salt": "58881a048ecdfe9372f321a837a3d9cf",
       "role": "client",
       "createdAt": "2026-10-23T21:28:59.196Z"
+    },
+    {
+      "id": "client-test-1792795333196",
+      "name": "Cliente Comum",
+      "email": "cliente.1792795333196@teste.ao",
+      "phone": "+244 923 777 888",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T22:42:13.196Z"
+    },
+    {
+      "id": "user-1792795333236",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792795333236@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T22:42:13.236Z"
+    },
+    {
+      "id": "test-user-1792795333448",
+      "name": "Mocinha Teste Persistência",
+      "phone": "+244 999 790498",
+      "email": "teste.1792795333546@mocinhas.ao",
+      "passwordHash": "f0a53199e6440485eb29e8c659ebe201817156ed99edd7dd52a1e7cc69b04b18da652c12ef4a6c521be07441f714e1184dbcbe0533fad1725e36bfba1c5be480",
+      "salt": "393c4f9a94c4f8b820ba3b0cd0db33d4",
+      "role": "client",
+      "createdAt": "2026-10-23T22:42:13.546Z"
+    },
+    {
+      "id": "client-test-1792795454938",
+      "name": "Cliente Comum",
+      "email": "cliente.1792795454938@teste.ao",
+      "phone": "+244 923 777 888",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T22:44:14.938Z"
+    },
+    {
+      "id": "user-1792795454954",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792795454954@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T22:44:14.954Z"
+    },
+    {
+      "id": "test-user-1792795455178",
+      "name": "Mocinha Teste Persistência",
+      "phone": "+244 999 509953",
+      "email": "teste.1792795455288@mocinhas.ao",
+      "passwordHash": "717063ee3535ab4bd68aa71bbbbc3d646516bd9edfa12f09e837ec79094ed4a52e9a950839a22ba7cccde69e5c5f6c7b87e43f1d747ab139cbd9143ebf8be224",
+      "salt": "552aa6aa37b022b9824c84daaf26dccf",
+      "role": "client",
+      "createdAt": "2026-10-23T22:44:15.288Z"
+    },
+    {
+      "id": "user-admin-aba0f7ad-120a-453c-8228-2c6ce36f0950",
+      "name": "Administradora Geral",
+      "phone": "+244 923 000 000",
+      "email": "admin@gmai.com",
+      "passwordHash": "7c8b2b8224cfb1564bbdc32ce9c0849cc96b3b385fb10ea1408742eff2b658870d764b8f5ca4b0bd9eb1556ce5a422a576a14781b0cb672e76de49a01e43f1dd",
+      "salt": "50e745ab6360a95e6534ae141aaa7609",
+      "role": "admin",
+      "createdAt": "2026-10-23T22:44:15.501Z"
+    },
+    {
+      "id": "user-1792795455681",
+      "name": "Cliente Teste Promoção",
+      "email": "temp.admin.1792795455632@gmai.com",
+      "phone": "+244 911 222 333",
+      "passwordHash": "ef4e6f801c4508f9033415606c2d8a7c43c66638cab61d655f4de0653302e741749a5bd906b9592fbca75adc019c6c0e774e2a180f4751a7e64ccd43600b5a48",
+      "salt": "9afa55726c4a3ca7e11e24af4e3bfff2",
+      "role": "admin",
+      "createdAt": "2026-10-23T22:44:15.681Z"
+    },
+    {
+      "id": "user-admin-177006c1-f2e2-4a15-8827-eb7181a638ee",
+      "name": "Administradora Oficial",
+      "phone": "+244 923 000 000",
+      "email": "admin@gmail.com",
+      "passwordHash": "ef63d7fed1d6210ffd372dcfefb67c5864ecce77be18fa968bce8fb6e45ed16b74aab087b65579228d13277ee966485550b7f7adc95f6ebf9eb5e58a13f3cb34",
+      "salt": "24f41d24bdf09c31eaf7df4b0b1d9be2",
+      "role": "admin",
+      "createdAt": "2026-10-23T22:44:23.348Z"
+    },
+    {
+      "id": "user-1792795492864",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792795492864@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T22:44:52.864Z"
+    },
+    {
+      "id": "client-test-1792795492887",
+      "name": "Cliente Comum",
+      "email": "cliente.1792795492887@teste.ao",
+      "phone": "+244 923 777 888",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T22:44:52.887Z"
+    },
+    {
+      "id": "user-1792795493507",
+      "name": "Cliente Teste Promoção",
+      "email": "temp.admin.1792795493456@gmai.com",
+      "phone": "+244 911 222 333",
+      "passwordHash": "cb9e8b7c390f7f80afec3e171280b3960c1aca3636b619e3ddedde59c4cbba6ae4e8db9436840f6cd492ce1afed83b80b7af07bfb008f3719cee8ad0f047fbec",
+      "salt": "70368c83cf4d7e3dc300437257603bef",
+      "role": "admin",
+      "createdAt": "2026-10-23T22:44:53.507Z"
+    },
+    {
+      "id": "client-test-1792796975172",
+      "name": "Cliente Comum",
+      "email": "cliente.1792796975172@teste.ao",
+      "phone": "+244 923 777 888",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T23:09:35.172Z"
+    },
+    {
+      "id": "user-1792796975225",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792796975225@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T23:09:35.225Z"
+    },
+    {
+      "id": "test-user-1792796975671",
+      "name": "Mocinha Teste Persistência",
+      "phone": "+244 999 513756",
+      "email": "teste.1792796975763@mocinhas.ao",
+      "passwordHash": "1d07d4e76466ffa026f09df2e0a4ee7c9f637ab4840c7d48237411ca14e27f6e389a5fefaa5e1326c4755328e8ccf9621418cbfbc6d7892922ef881394f075dd",
+      "salt": "78cb383b3b5946f410bc13c8692fe9d4",
+      "role": "client",
+      "createdAt": "2026-10-23T23:09:35.764Z"
+    },
+    {
+      "id": "user-1792798461287",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792798461287@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T23:34:21.287Z"
+    },
+    {
+      "id": "user-1792798461942",
+      "name": "Cliente Teste Promoção",
+      "email": "temp.admin.1792798461884@gmai.com",
+      "phone": "+244 911 222 333",
+      "passwordHash": "cdef84b1bc2e16c87a7556434deeacd17bb81d14fa9c840ac4132ab974199addb21a44f545a7b3565b2820ada3fb9703cfe42d7159b07a9a6434fe883b5d260b",
+      "salt": "4f34198373697340c87eeaf9d5608302",
+      "role": "admin",
+      "createdAt": "2026-10-23T23:34:21.942Z"
     }
   ],
   "categories": [
@@ -512,6 +682,104 @@
     }
   ],
   "orders": [
+    {
+      "id": "test-order-1792796975899",
+      "orderNumber": "MOC-TEST-9507",
+      "customerId": "test-user-1792796975671",
+      "customerName": "Mocinha Teste Persistência",
+      "customerPhone": "+244 999 513756",
+      "customerEmail": "teste.1792796975763@mocinhas.ao",
+      "destinationProvince": "Benguela",
+      "destinationMunicipality": "Lobito",
+      "carrierId": "carrier-real-express",
+      "carrierName": "Real Express",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Kit Completo Rosa Mosqueta Porán",
+          "price": 17000,
+          "quantity": 1,
+          "subtotal": 17000
+        }
+      ],
+      "subtotal": 17000,
+      "shippingFee": 3500,
+      "total": 20500,
+      "status": "comprovativo_enviado",
+      "paymentStatus": "em_verificacao",
+      "paymentMethod": "Transferência Bancária / Multicaixa Express",
+      "statusHistory": [
+        {
+          "id": "hist-1",
+          "status": "aguardando_pagamento",
+          "title": "Aguardando Pagamento",
+          "description": "Encomenda gerada para teste de persistência.",
+          "timestamp": "2026-10-23T23:09:35.899Z",
+          "updatedBy": "Teste Automático"
+        },
+        {
+          "id": "hist-2",
+          "status": "comprovativo_enviado",
+          "title": "Comprovativo Anexado",
+          "description": "Comprovativo anexado em teste.",
+          "timestamp": "2026-10-23T23:09:35.901Z",
+          "updatedBy": "Cliente Teste"
+        }
+      ],
+      "createdAt": "2026-10-23T23:09:35.899Z",
+      "updatedAt": "2026-10-23T23:09:35.901Z",
+      "receiptFilename": "comprovativo_teste.pdf",
+      "receiptUploadedAt": "2026-10-23T23:09:35.900Z"
+    },
+    {
+      "id": "test-order-1792795333684",
+      "orderNumber": "MOC-TEST-9435",
+      "customerId": "test-user-1792795333448",
+      "customerName": "Mocinha Teste Persistência",
+      "customerPhone": "+244 999 790498",
+      "customerEmail": "teste.1792795333546@mocinhas.ao",
+      "destinationProvince": "Benguela",
+      "destinationMunicipality": "Lobito",
+      "carrierId": "carrier-real-express",
+      "carrierName": "Real Express",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Kit Completo Rosa Mosqueta Porán",
+          "price": 17000,
+          "quantity": 1,
+          "subtotal": 17000
+        }
+      ],
+      "subtotal": 17000,
+      "shippingFee": 3500,
+      "total": 20500,
+      "status": "comprovativo_enviado",
+      "paymentStatus": "em_verificacao",
+      "paymentMethod": "Transferência Bancária / Multicaixa Express",
+      "statusHistory": [
+        {
+          "id": "hist-1",
+          "status": "aguardando_pagamento",
+          "title": "Aguardando Pagamento",
+          "description": "Encomenda gerada para teste de persistência.",
+          "timestamp": "2026-10-23T22:42:13.684Z",
+          "updatedBy": "Teste Automático"
+        },
+        {
+          "id": "hist-2",
+          "status": "comprovativo_enviado",
+          "title": "Comprovativo Anexado",
+          "description": "Comprovativo anexado em teste.",
+          "timestamp": "2026-10-23T22:42:13.686Z",
+          "updatedBy": "Cliente Teste"
+        }
+      ],
+      "createdAt": "2026-10-23T22:42:13.684Z",
+      "updatedAt": "2026-10-23T22:42:13.686Z",
+      "receiptFilename": "comprovativo_teste.pdf",
+      "receiptUploadedAt": "2026-10-23T22:42:13.685Z"
+    },
     {
       "id": "test-order-1792790939330",
       "orderNumber": "MOC-TEST-2247",

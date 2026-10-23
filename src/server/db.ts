@@ -559,6 +559,66 @@ class Database {
     return this.data.users.filter((u) => u.role === 'admin');
   }
 
+  ensureRecognizedAdmin(
+    targetEmail = 'admin@gmai.com',
+    options?: {
+      name?: string;
+      phone?: string;
+      password?: string;
+    }
+  ): { user: User; created: boolean; updated: boolean } {
+    const cleanEmail = targetEmail.trim().toLowerCase();
+    const existing = this.getUserByEmail(cleanEmail);
+
+    if (existing) {
+      let wasUpdated = false;
+      const updates: Partial<User> = {};
+
+      if (existing.role !== 'admin') {
+        updates.role = 'admin';
+        wasUpdated = true;
+      }
+      if (options?.name && options.name !== existing.name) {
+        updates.name = options.name;
+        wasUpdated = true;
+      }
+      if (options?.phone && options.phone !== existing.phone) {
+        updates.phone = options.phone;
+        wasUpdated = true;
+      }
+      if (options?.password) {
+        const { hash, salt } = hashPassword(options.password);
+        updates.passwordHash = hash;
+        updates.salt = salt;
+        wasUpdated = true;
+      }
+
+      if (wasUpdated) {
+        const updatedUser = this.updateUser(existing.id, updates)!;
+        return { user: updatedUser, created: false, updated: true };
+      }
+      return { user: existing, created: false, updated: false };
+    }
+
+    // Account does not exist yet: create with secure hash
+    const initialPassword = options?.password || process.env.ADMIN_INITIAL_PASSWORD || 'AdminMocinhas2026!';
+    const { hash, salt } = hashPassword(initialPassword);
+
+    const newAdmin: User = {
+      id: `user-admin-${crypto.randomUUID()}`,
+      name: options?.name || 'Administradora Geral',
+      phone: options?.phone || '+244 923 000 000',
+      email: cleanEmail,
+      passwordHash: hash,
+      salt,
+      role: 'admin',
+      createdAt: new Date().toISOString(),
+    };
+
+    this.createUser(newAdmin);
+    return { user: newAdmin, created: true, updated: false };
+  }
+
   // --- Products ---
   getProducts(): Product[] {
     return this.data.products;

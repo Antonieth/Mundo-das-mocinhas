@@ -4,6 +4,18 @@ import { db, User } from './db.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'mundo-das-mocinhas-secret-key-2026';
 
+export const DESIGNATED_ADMIN_EMAILS = [
+  'admin@gmai.com',
+  'admin@gmail.com',
+  'antoniethantonio@gmail.com',
+];
+
+export function isDesignatedAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  const clean = email.trim().toLowerCase();
+  return DESIGNATED_ADMIN_EMAILS.some((adm) => adm.toLowerCase() === clean);
+}
+
 export interface AuthenticatedUser {
   id: string;
   name: string;

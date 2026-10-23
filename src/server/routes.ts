@@ -18,6 +18,7 @@ import {
   generateToken,
   requireAuth,
   requireAdmin,
+  isDesignatedAdminEmail,
 } from './auth.js';
 import {
   verifyAndCalculateItems,
@@ -67,15 +68,16 @@ apiRouter.post('/auth/register', (req: AuthenticatedRequest, res: Response) => {
       return res.status(400).json({ error: 'Já existe uma conta com este número de telefone.' });
     }
 
+    const isTargetAdmin = isDesignatedAdminEmail(email);
     const { hash, salt } = hashPassword(password);
     const newUser: User = {
-      id: `user-${crypto.randomUUID()}`,
+      id: isTargetAdmin ? `user-admin-${crypto.randomUUID()}` : `user-${crypto.randomUUID()}`,
       name: name.trim(),
       phone: phone.trim(),
       email: email.trim().toLowerCase(),
       passwordHash: hash,
       salt,
-      role: 'client',
+      role: isTargetAdmin ? 'admin' : 'client',
       createdAt: new Date().toISOString(),
     };
 
@@ -99,7 +101,7 @@ apiRouter.post('/auth/register', (req: AuthenticatedRequest, res: Response) => {
 });
 
 // Login (Customer or Admin)
-apiRouter.post('/auth/login', (req: AuthenticatedRequest, res: Response) => {
+apiRouter.post('/auth/login', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { identifier, password } = req.body; // email or phone
     if (!identifier || !password) {
@@ -107,6 +109,66 @@ apiRouter.post('/auth/login', (req: AuthenticatedRequest, res: Response) => {
     }
 
     const trimmed = identifier.trim();
+
+    // 1. If identifier is an email and Supabase is configured, authenticate via Supabase Auth
+    if (trimmed.includes('@') && isSupabaseConfigured()) {
+      try {
+        const supabase = getSupabaseAdminClient();
+        if (supabase) {
+          const { data: authData, error: authErr } = await supabase.auth.signInWithPassword({
+            email: trimmed.toLowerCase(),
+            password: String(password),
+          });
+
+          if (authData?.user && !authErr) {
+            const email = authData.user.email!.toLowerCase();
+            const isAdmin = isDesignatedAdminEmail(email);
+            const role = isAdmin ? 'admin' : 'client';
+
+            let localUser = db.getUserByEmail(email);
+            const { hash, salt } = hashPassword(password);
+
+            if (!localUser) {
+              localUser = {
+                id: authData.user.id,
+                name: authData.user.user_metadata?.name || (isAdmin ? 'Administradora Oficial' : 'Cliente Mocinhas'),
+                phone: authData.user.user_metadata?.phone || '+244 923 000 000',
+                email,
+                passwordHash: hash,
+                salt,
+                role,
+                createdAt: authData.user.created_at || new Date().toISOString(),
+              };
+              db.createUser(localUser);
+            } else {
+              db.updateUser(localUser.id, {
+                role,
+                passwordHash: hash,
+                salt,
+              });
+              localUser.role = role;
+            }
+
+            const token = generateToken(localUser);
+            return res.json({
+              message: 'Sessão iniciada com sucesso!',
+              token,
+              user: {
+                id: localUser.id,
+                name: localUser.name,
+                email: localUser.email,
+                phone: localUser.phone,
+                role: localUser.role,
+              },
+            });
+          }
+        }
+      } catch (sbErr) {
+        console.warn('Supabase Auth login attempt error (proceeding to local fallback):', sbErr);
+      }
+    }
+
+    // 2. Fallback to local database authentication
     let user = db.getUserByEmail(trimmed);
     if (!user) {
       user = db.getUserByPhone(trimmed);
@@ -119,6 +181,13 @@ apiRouter.post('/auth/login', (req: AuthenticatedRequest, res: Response) => {
     const isValid = verifyPassword(password, user.passwordHash, user.salt);
     if (!isValid) {
       return res.status(401).json({ error: 'Credenciais inválidas. Verifique o seu e-mail e palavra-passe.' });
+    }
+
+    // Platform recognition: If logging in with designated admin email (e.g. admin@gmai.com or admin@gmail.com),
+    // ensure the user role is recognized as 'admin' in both the database and the token.
+    if (isDesignatedAdminEmail(user.email) && user.role !== 'admin') {
+      user.role = 'admin';
+      db.updateUser(user.id, { role: 'admin' });
     }
 
     const token = generateToken(user);
@@ -204,11 +273,18 @@ apiRouter.get('/admin/setup-status', (_req: AuthenticatedRequest, res: Response)
       process.env.ADMIN_SETUP_TOKEN?.trim() || process.env.ADMIN_SETUP_SECRET?.trim()
     );
 
+    const isRecognizedAdminPresent = Boolean(
+      db.getUserByEmail('admin@gmai.com')?.role === 'admin' ||
+      db.getUserByEmail('admin@gmail.com')?.role === 'admin'
+    );
+
     return res.json({
       hasAdmin: existingAdmins.length > 0,
       adminCount: existingAdmins.length,
       needsSetup: existingAdmins.length === 0,
       isTokenConfigured,
+      designatedAdminEmail: 'admin@gmai.com',
+      isRecognizedAdminPresent,
     });
   } catch (err: any) {
     return res.status(500).json({ error: 'Erro ao verificar estado de administradores.' });
