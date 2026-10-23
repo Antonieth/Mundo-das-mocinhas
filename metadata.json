@@ -1,0 +1,6 @@
+{
+  "name": "O Mundo das Mocinhas",
+  "description": "Loja online oficial e sistema de gestão de vendas para O Mundo das Mocinhas em Angola. Cosméticos, maquilhagem, cuidados e acessórios com envio para todas as províncias.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
