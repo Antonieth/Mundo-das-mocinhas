@@ -119,6 +119,26 @@
       "salt": "8c7c73267a987bed1f405e9fb5710179",
       "role": "client",
       "createdAt": "2026-10-23T14:26:41.329Z"
+    },
+    {
+      "id": "user-1792790938819",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792790938819@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-23T21:28:58.819Z"
+    },
+    {
+      "id": "test-user-1792790939071",
+      "name": "Mocinha Teste Persistência",
+      "phone": "+244 999 542732",
+      "email": "teste.1792790939196@mocinhas.ao",
+      "passwordHash": "171e73c75bef2b4abe9bafb0ed0fee9962727ef3cbc5387b45cd55b1c8dc0baca63ef678f06fe494ea9e8cc7e0606a35dab249a5ff4a16363d4f7b1870c9cfca",
+      "salt": "58881a048ecdfe9372f321a837a3d9cf",
+      "role": "client",
+      "createdAt": "2026-10-23T21:28:59.196Z"
     }
   ],
   "categories": [
@@ -492,6 +512,55 @@
     }
   ],
   "orders": [
+    {
+      "id": "test-order-1792790939330",
+      "orderNumber": "MOC-TEST-2247",
+      "customerId": "test-user-1792790939071",
+      "customerName": "Mocinha Teste Persistência",
+      "customerPhone": "+244 999 542732",
+      "customerEmail": "teste.1792790939196@mocinhas.ao",
+      "destinationProvince": "Benguela",
+      "destinationMunicipality": "Lobito",
+      "carrierId": "carrier-real-express",
+      "carrierName": "Real Express",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Kit Completo Rosa Mosqueta Porán",
+          "price": 17000,
+          "quantity": 1,
+          "subtotal": 17000
+        }
+      ],
+      "subtotal": 17000,
+      "shippingFee": 3500,
+      "total": 20500,
+      "status": "comprovativo_enviado",
+      "paymentStatus": "em_verificacao",
+      "paymentMethod": "Transferência Bancária / Multicaixa Express",
+      "statusHistory": [
+        {
+          "id": "hist-1",
+          "status": "aguardando_pagamento",
+          "title": "Aguardando Pagamento",
+          "description": "Encomenda gerada para teste de persistência.",
+          "timestamp": "2026-10-23T21:28:59.331Z",
+          "updatedBy": "Teste Automático"
+        },
+        {
+          "id": "hist-2",
+          "status": "comprovativo_enviado",
+          "title": "Comprovativo Anexado",
+          "description": "Comprovativo anexado em teste.",
+          "timestamp": "2026-10-23T21:28:59.332Z",
+          "updatedBy": "Cliente Teste"
+        }
+      ],
+      "createdAt": "2026-10-23T21:28:59.331Z",
+      "updatedAt": "2026-10-23T21:28:59.332Z",
+      "receiptFilename": "comprovativo_teste.pdf",
+      "receiptUploadedAt": "2026-10-23T21:28:59.332Z"
+    },
     {
       "id": "test-order-1792765601452",
       "orderNumber": "MOC-TEST-1976",
