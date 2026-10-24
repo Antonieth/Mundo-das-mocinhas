@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '../types.js';
+import { supabase } from '../lib/supabase.js';
 
 interface AuthContextType {
   user: User | null;
@@ -56,9 +57,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(data.user);
           localStorage.setItem('mdm_user', JSON.stringify(data.user));
         } else {
+          // If server session check returned null, check if we have active supabase session
+          const { data: sbData } = await supabase.auth.getSession();
+          if (sbData?.session?.user) {
+            const email = sbData.session.user.email!.toLowerCase();
+            const isAdmin = ['admin@gmail.com', 'admin@gmai.com', 'antoniethantonio@gmail.com'].includes(email);
+            const recoveredUser: User = {
+              id: sbData.session.user.id,
+              name: sbData.session.user.user_metadata?.name || (isAdmin ? 'Administradora Oficial' : 'Cliente Mocinhas'),
+              email,
+              phone: sbData.session.user.user_metadata?.phone || '+244 923 000 000',
+              role: isAdmin ? 'admin' : 'client',
+              createdAt: sbData.session.user.created_at || new Date().toISOString(),
+            };
+            setUser(recoveredUser);
+            localStorage.setItem('mdm_user', JSON.stringify(recoveredUser));
+            return;
+          }
           logout();
         }
       } else {
+        // If server 401 or offline, check if client supabase session is active
+        const { data: sbData } = await supabase.auth.getSession();
+        if (sbData?.session?.user) {
+          const email = sbData.session.user.email!.toLowerCase();
+          const isAdmin = ['admin@gmail.com', 'admin@gmai.com', 'antoniethantonio@gmail.com'].includes(email);
+          const recoveredUser: User = {
+            id: sbData.session.user.id,
+            name: sbData.session.user.user_metadata?.name || (isAdmin ? 'Administradora Oficial' : 'Cliente Mocinhas'),
+            email,
+            phone: sbData.session.user.user_metadata?.phone || '+244 923 000 000',
+            role: isAdmin ? 'admin' : 'client',
+            createdAt: sbData.session.user.created_at || new Date().toISOString(),
+          };
+          setUser(recoveredUser);
+          localStorage.setItem('mdm_user', JSON.stringify(recoveredUser));
+          return;
+        }
         logout();
       }
     } catch (err) {
@@ -81,6 +116,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
       const data = await res.json();
       if (!res.ok) {
+        // Resilient fallback for Vercel: try client-side Supabase Auth directly
+        if (identifier.includes('@')) {
+          try {
+            const { data: sbData, error: sbError } = await supabase.auth.signInWithPassword({
+              email: identifier.trim().toLowerCase(),
+              password,
+            });
+
+            if (sbData?.user && !sbError) {
+              const email = sbData.user.email!.toLowerCase();
+              const isAdmin = ['admin@gmail.com', 'admin@gmai.com', 'antoniethantonio@gmail.com'].includes(email);
+              const clientUser: User = {
+                id: sbData.user.id,
+                name: sbData.user.user_metadata?.name || (isAdmin ? 'Administradora Oficial' : 'Cliente Mocinhas'),
+                email,
+                phone: sbData.user.user_metadata?.phone || '+244 923 000 000',
+                role: isAdmin ? 'admin' : 'client',
+                createdAt: sbData.user.created_at || new Date().toISOString(),
+              };
+
+              const fallbackToken = sbData.session?.access_token || `mdm-token-${Date.now()}`;
+              setToken(fallbackToken);
+              setUser(clientUser);
+              localStorage.setItem('mdm_token', fallbackToken);
+              localStorage.setItem('mdm_user', JSON.stringify(clientUser));
+              return { success: true, user: clientUser };
+            }
+          } catch (clientAuthErr) {
+            console.warn('Client Supabase Auth fallback attempt error:', clientAuthErr);
+          }
+        }
+
         return { success: false, error: data.error || 'Erro ao iniciar sessão.' };
       }
       setToken(data.token);
@@ -89,6 +156,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('mdm_user', JSON.stringify(data.user));
       return { success: true, user: data.user };
     } catch (err: any) {
+      // Network failure on /api/auth/login: Try direct Supabase Auth
+      if (identifier.includes('@')) {
+        try {
+          const { data: sbData, error: sbError } = await supabase.auth.signInWithPassword({
+            email: identifier.trim().toLowerCase(),
+            password,
+          });
+
+          if (sbData?.user && !sbError) {
+            const email = sbData.user.email!.toLowerCase();
+            const isAdmin = ['admin@gmail.com', 'admin@gmai.com', 'antoniethantonio@gmail.com'].includes(email);
+            const clientUser: User = {
+              id: sbData.user.id,
+              name: sbData.user.user_metadata?.name || (isAdmin ? 'Administradora Oficial' : 'Cliente Mocinhas'),
+              email,
+              phone: sbData.user.user_metadata?.phone || '+244 923 000 000',
+              role: isAdmin ? 'admin' : 'client',
+              createdAt: sbData.user.created_at || new Date().toISOString(),
+            };
+
+            const fallbackToken = sbData.session?.access_token || `mdm-token-${Date.now()}`;
+            setToken(fallbackToken);
+            setUser(clientUser);
+            localStorage.setItem('mdm_token', fallbackToken);
+            localStorage.setItem('mdm_user', JSON.stringify(clientUser));
+            return { success: true, user: clientUser };
+          }
+        } catch (clientAuthErr) {
+          console.warn('Client Supabase Auth network fallback error:', clientAuthErr);
+        }
+      }
+
       return { success: false, error: err.message || 'Erro de conexão ao servidor.' };
     }
   };

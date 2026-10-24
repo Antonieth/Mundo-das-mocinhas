@@ -205,8 +205,8 @@
       "name": "Administradora Geral",
       "phone": "+244 923 000 000",
       "email": "admin@gmai.com",
-      "passwordHash": "7c8b2b8224cfb1564bbdc32ce9c0849cc96b3b385fb10ea1408742eff2b658870d764b8f5ca4b0bd9eb1556ce5a422a576a14781b0cb672e76de49a01e43f1dd",
-      "salt": "50e745ab6360a95e6534ae141aaa7609",
+      "passwordHash": "f1707147e129ee9bf0594b7c63df4f6a6287286eb3b0a40826fe8204218093a453ac595f4ec0134797653ed0e53d7b72316ba25bc9b37108c98c527c7268d6fb",
+      "salt": "c40d5f346b73862119b2b0b9035479b5",
       "role": "admin",
       "createdAt": "2026-10-23T22:44:15.501Z"
     },
@@ -309,6 +309,66 @@
       "salt": "4f34198373697340c87eeaf9d5608302",
       "role": "admin",
       "createdAt": "2026-10-23T23:34:21.942Z"
+    },
+    {
+      "id": "client-test-1792801048272",
+      "name": "Cliente Comum",
+      "email": "cliente.1792801048272@teste.ao",
+      "phone": "+244 923 777 888",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-24T00:17:28.272Z"
+    },
+    {
+      "id": "user-1792801048421",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792801048421@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-24T00:17:28.421Z"
+    },
+    {
+      "id": "user-1792801049051",
+      "name": "Cliente Teste Promoção",
+      "email": "temp.admin.1792801049001@gmai.com",
+      "phone": "+244 911 222 333",
+      "passwordHash": "07aaa79d71dec5bef329de196664a63a9d19724159672ce431aaa10002da43c94b018044f222c3e4c93f7c6f433e315a1af08dcc71dc5119229a21b3d386bab7",
+      "salt": "a1758f7ebee406bc6504aa5e6c9dae96",
+      "role": "admin",
+      "createdAt": "2026-10-24T00:17:29.051Z"
+    },
+    {
+      "id": "user-1792801133443",
+      "name": "Cliente Tentativa",
+      "email": "tentativa.1792801133443@teste.ao",
+      "phone": "+244 923 444 555",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-24T00:18:53.443Z"
+    },
+    {
+      "id": "client-test-1792801133459",
+      "name": "Cliente Comum",
+      "email": "cliente.1792801133459@teste.ao",
+      "phone": "+244 923 777 888",
+      "passwordHash": "hash",
+      "salt": "salt",
+      "role": "client",
+      "createdAt": "2026-10-24T00:18:53.459Z"
+    },
+    {
+      "id": "test-user-1792801133930",
+      "name": "Mocinha Teste Persistência",
+      "phone": "+244 999 438261",
+      "email": "teste.1792801134007@mocinhas.ao",
+      "passwordHash": "6e7d3ac14f61ff9a646c7ce6b1381d54d7f95507ab62f43bee74d66daf08740992bf402dfec317348f5576d0adbda31b49ed941208637193f8b7cab216de60a7",
+      "salt": "4f762157ca59da6ce9529d6bfbd796ce",
+      "role": "client",
+      "createdAt": "2026-10-24T00:18:54.007Z"
     }
   ],
   "categories": [
@@ -682,6 +742,55 @@
     }
   ],
   "orders": [
+    {
+      "id": "test-order-1792801134141",
+      "orderNumber": "MOC-TEST-8097",
+      "customerId": "test-user-1792801133930",
+      "customerName": "Mocinha Teste Persistência",
+      "customerPhone": "+244 999 438261",
+      "customerEmail": "teste.1792801134007@mocinhas.ao",
+      "destinationProvince": "Benguela",
+      "destinationMunicipality": "Lobito",
+      "carrierId": "carrier-real-express",
+      "carrierName": "Real Express",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Kit Completo Rosa Mosqueta Porán",
+          "price": 17000,
+          "quantity": 1,
+          "subtotal": 17000
+        }
+      ],
+      "subtotal": 17000,
+      "shippingFee": 3500,
+      "total": 20500,
+      "status": "comprovativo_enviado",
+      "paymentStatus": "em_verificacao",
+      "paymentMethod": "Transferência Bancária / Multicaixa Express",
+      "statusHistory": [
+        {
+          "id": "hist-1",
+          "status": "aguardando_pagamento",
+          "title": "Aguardando Pagamento",
+          "description": "Encomenda gerada para teste de persistência.",
+          "timestamp": "2026-10-24T00:18:54.141Z",
+          "updatedBy": "Teste Automático"
+        },
+        {
+          "id": "hist-2",
+          "status": "comprovativo_enviado",
+          "title": "Comprovativo Anexado",
+          "description": "Comprovativo anexado em teste.",
+          "timestamp": "2026-10-24T00:18:54.143Z",
+          "updatedBy": "Cliente Teste"
+        }
+      ],
+      "createdAt": "2026-10-24T00:18:54.141Z",
+      "updatedAt": "2026-10-24T00:18:54.143Z",
+      "receiptFilename": "comprovativo_teste.pdf",
+      "receiptUploadedAt": "2026-10-24T00:18:54.143Z"
+    },
     {
       "id": "test-order-1792796975899",
       "orderNumber": "MOC-TEST-9507",

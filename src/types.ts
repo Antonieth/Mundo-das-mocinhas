@@ -6,6 +6,7 @@ export interface User {
   phone: string;
   email: string;
   role: 'client' | 'admin';
+  createdAt?: string;
 }
 
 export interface Category {

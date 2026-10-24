@@ -120,12 +120,22 @@ test('Database persists data to disk and reloads correctly on re-instantiation',
 
 test('Supabase configuration detector validates URL and key requirements', () => {
   // Save initial env
-  const origUrl = process.env.SUPABASE_URL;
-  const origKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const origEnv = {
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    VITE_SUPABASE_URL: process.env.VITE_SUPABASE_URL,
+    VITE_SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY,
+    URL_SUPABASE: process.env.URL_SUPABASE,
+  };
 
   try {
     delete process.env.SUPABASE_URL;
     delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    delete process.env.SUPABASE_ANON_KEY;
+    delete process.env.VITE_SUPABASE_URL;
+    delete process.env.VITE_SUPABASE_ANON_KEY;
+    delete process.env.URL_SUPABASE;
     assert.equal(isSupabaseConfigured(), false);
 
     // Placeholder shouldn't count as configured
@@ -139,7 +149,12 @@ test('Supabase configuration detector validates URL and key requirements', () =>
     assert.equal(isSupabaseConfigured(), true);
   } finally {
     // Restore
-    if (origUrl) process.env.SUPABASE_URL = origUrl; else delete process.env.SUPABASE_URL;
-    if (origKey) process.env.SUPABASE_SERVICE_ROLE_KEY = origKey; else delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    for (const [k, v] of Object.entries(origEnv)) {
+      if (v !== undefined) {
+        process.env[k] = v;
+      } else {
+        delete process.env[k];
+      }
+    }
   }
 });

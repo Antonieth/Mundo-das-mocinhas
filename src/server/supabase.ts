@@ -5,9 +5,46 @@ dotenv.config();
 
 let cachedClient: SupabaseClient | null = null;
 
+export const DEFAULT_SUPABASE_URL = 'https://mmrqbjftioyreyjeplee.supabase.co';
+export const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_dK08ZSYUebWu7Jh3Phdc7A_rqy5NF8E';
+
+export function getSupabaseUrl(): string {
+  const url =
+    process.env.SUPABASE_URL?.trim() ||
+    process.env.URL_SUPABASE?.trim() ||
+    process.env.VITE_SUPABASE_URL?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() ||
+    DEFAULT_SUPABASE_URL;
+  return url;
+}
+
+export function getSupabaseKey(): string {
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
+    process.env.SUPABASE_ANON_KEY?.trim() ||
+    process.env.VITE_SUPABASE_ANON_KEY?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() ||
+    process.env.ANON_KEY_SUPABASE?.trim() ||
+    process.env.SUPABASE_KEY?.trim() ||
+    DEFAULT_SUPABASE_ANON_KEY;
+  return key;
+}
+
 export function isSupabaseConfigured(): boolean {
-  const url = process.env.SUPABASE_URL?.trim();
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || process.env.SUPABASE_ANON_KEY?.trim();
+  const url =
+    process.env.SUPABASE_URL?.trim() ||
+    process.env.URL_SUPABASE?.trim() ||
+    process.env.VITE_SUPABASE_URL?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
+    process.env.SUPABASE_ANON_KEY?.trim() ||
+    process.env.VITE_SUPABASE_ANON_KEY?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() ||
+    process.env.ANON_KEY_SUPABASE?.trim() ||
+    process.env.SUPABASE_KEY?.trim();
+
   return Boolean(
     url &&
     key &&
@@ -18,16 +55,16 @@ export function isSupabaseConfigured(): boolean {
 }
 
 export function getSupabaseAdminClient(): SupabaseClient | null {
-  if (!isSupabaseConfigured()) {
+  const url = getSupabaseUrl();
+  const key = getSupabaseKey();
+
+  if (!url || !key || url.includes('YOUR_SUPABASE') || key.includes('YOUR_KEY')) {
     return null;
   }
 
   if (cachedClient) {
     return cachedClient;
   }
-
-  const url = process.env.SUPABASE_URL!.trim();
-  const key = (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY)!.trim();
 
   try {
     cachedClient = createClient(url, key, {
